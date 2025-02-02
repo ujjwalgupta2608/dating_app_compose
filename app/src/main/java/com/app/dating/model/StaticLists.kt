@@ -31,5 +31,36 @@ val onboardingData = listOf(
         addStyle(SpanStyle(color = Color(0xFF242424)), 0, length)
     })
 )
-
+val languages = listOf(
+    "Zulu",
+    "English",
+    "Afrikaans",
+    "Swahili",
+    "Portuguese",
+    "Modern Standard Arabic",
+    "French",
+    "Mandarin",
+    "Hindi",
+    "Russian",
+    "Spanish",
+    "Bengali",
+    "Japanese",
+    "Indonesian",
+    "German",
+    "Vietnamese",
+    "Telugu",
+    "Turkish",
+    "Marathi",
+    "Sesotho",
+    "Nigerian Pidgin",
+    "Tamil",
+    "Romanian",
+    "Polish",
+    "Ukrainian",
+    "Italian",
+    "Korean",
+    "Thai",
+    "Filipino",
+    "Dutch"
+)
 data class OnboardingData(val image: Int? = null, val title: AnnotatedString? = null)

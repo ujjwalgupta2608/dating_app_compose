@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.app.dating.ui.screen.LoginScreen
+import com.app.dating.ui.screen.LoginFlow
 import com.app.dating.ui.screen.SelectLanguageScreen
 import com.app.dating.ui.screen.SignUpScreen
 import com.app.dating.ui.screen.SplashScreen
@@ -14,24 +14,25 @@ import com.app.dating.ui.screen.WelcomeScreen
 @Composable
 fun AppNavigation(){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Routes.splash){
-        composable(Routes.splash){
+    NavHost(navController = navController, startDestination = Routes.Splash.route){
+        composable(Routes.Splash.route){
             SplashScreen(navController)
         }
-        composable(Routes.welcome){
+        composable(Routes.Welcome.route){
             WelcomeScreen(navController)
         }
-        composable(Routes.login){
-            LoginScreen(navController)
+        composable(Routes.Login.route){
+            LoginFlow(navController)
         }
-        composable(Routes.signup){
+        composable(Routes.Signup.route){
             SignUpScreen(navController)
         }
-        composable(Routes.selectLanguage){
-            SelectLanguageScreen(navController)
+        composable(Routes.SelectLanguage.route){ backStackEntry ->
+            val previousScreen = backStackEntry.arguments?.getString("previousScreen") ?: ""
+            SelectLanguageScreen(navController,  previousScreen)
         }
-        composable(Routes.walkthrough){
-            WalkthroughScreen()
+        composable(Routes.Walkthrough.route){
+            WalkthroughScreen(navController)
         }
     }
 }

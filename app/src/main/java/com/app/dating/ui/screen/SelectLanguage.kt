@@ -1,5 +1,7 @@
 package com.app.dating.ui.screen
 
+import com.app.dating.model.languages
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.app.dating.R
 import com.app.dating.navigation.Routes
+import com.app.dating.ui.theme.BlackMineShaft
 import com.app.dating.ui.theme.GreyBoulder
 import com.app.dating.ui.theme.Inter
 import com.app.dating.ui.theme.Theme
@@ -39,9 +42,8 @@ import com.app.dating.ui.theme.WhiteWhisper
 import com.app.dating.ui.theme.Typography
 
 @Composable
-fun SelectLanguageScreen(navController: NavHostController) {
+fun SelectLanguageScreen(navController: NavHostController, previousScreen: String) {
     // List of languages
-    val languages = listOf("Hindi", "English", "French", "Spanish", "German")
     var selectedLanguage by remember { mutableStateOf(languages[0]) }
     Column(
         Modifier
@@ -54,10 +56,15 @@ fun SelectLanguageScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .padding(24.dp, 40.dp, 24.dp, 24.dp),
         ) {
-            Image(
-                painter = painterResource(R.drawable.back_button),
-                contentDescription = "Back Button"
-            )
+            if (previousScreen!="splash"){
+                Image(
+                    painter = painterResource(R.drawable.back_button),
+                    contentDescription = "Back Button",
+                    modifier = Modifier.clickable {
+
+                    }
+                )
+            }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,24 +81,22 @@ fun SelectLanguageScreen(navController: NavHostController) {
         // Language List
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(languages) { language ->
-                ItemList(
-                    language = language,
+                ItemList(language = language,
                     isSelected = selectedLanguage == language,
-                    onLanguageSelected = { selectedLanguage = it }
-                )
+                    onLanguageSelected = { selectedLanguage = it })
             }
         }
 
         // Update Language Button
-        Card(
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 10.dp
-            ), shape = RoundedCornerShape(8.dp, 8.dp, 0.dp, 0.dp), colors = CardDefaults.cardColors(
-                containerColor = White
-            ), modifier = Modifier.fillMaxWidth().clickable {
-                navController.navigate(Routes.welcome)
-            }
-        ) {
+        Card(elevation = CardDefaults.cardElevation(
+            defaultElevation = 10.dp
+        ), shape = RoundedCornerShape(8.dp, 8.dp, 0.dp, 0.dp), colors = CardDefaults.cardColors(
+            containerColor = White
+        ), modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                navController.navigate(Routes.Welcome.route)
+            }) {
             Box(
                 modifier = Modifier
                     .padding(24.dp, 16.dp, 24.dp, 24.dp)
@@ -117,18 +122,18 @@ fun SelectLanguageScreen(navController: NavHostController) {
 
 @Composable
 fun ItemList(language: String, isSelected: Boolean, onLanguageSelected: (String) -> Unit) {
+    Log.d("TAG", "SelectLanguageScreen: ")
     Box(modifier = Modifier.padding(20.dp, 0.dp, 20.dp, 8.dp)) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp, 8.dp, 8.dp, 8.dp))
-                .background(if (isSelected) Theme else WhiteWhisper) // Highlight selected item
-                .padding(20.dp, 14.dp, 20.dp, 14.dp)
-                .clickable { onLanguageSelected(language) } // Handle item click
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp, 8.dp, 8.dp, 8.dp))
+            .background(/*if (isSelected) Theme else */WhiteWhisper) // Highlight selected item
+            .padding(20.dp, 14.dp, 20.dp, 14.dp)
+            .clickable { onLanguageSelected(language) } // Handle item click
         ) {
             Text(
                 text = language,
-                color = if (isSelected) WhiteWhisper else GreyBoulder,
+                color = if (isSelected) BlackMineShaft else GreyBoulder,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Normal,
@@ -142,8 +147,7 @@ fun ItemList(language: String, isSelected: Boolean, onLanguageSelected: (String)
             Image(
                 painter = painterResource(
                     if (isSelected) R.drawable.selected_circle else R.drawable.unselected_circle
-                ),
-                contentDescription = "language selection"
+                ), contentDescription = "language selection"
             )
         }
     }

@@ -39,6 +39,12 @@ val Typography = Typography(
         letterSpacing = 0.5.sp,
         color = BlackMineShaft
     ),
+    labelSmall = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        color = WhiteWhisper
+    ),
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

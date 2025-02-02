@@ -187,8 +187,8 @@ fun SignUpScreen(navController: NavHostController) {
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 10.dp).clickable {
-                    navController.navigate(Routes.login) {
-                        popUpTo(navController.graph.startDestinationId) { inclusive = true } // Clear all fragments in the back stack
+                        navController.navigate(Routes.Login.route) {
+                        popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
                     }
                 },
                 textDecoration = TextDecoration.Underline

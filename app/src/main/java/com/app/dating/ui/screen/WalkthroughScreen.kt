@@ -37,6 +37,8 @@ import com.app.dating.R
 import com.app.dating.model.OnboardingData
 import com.app.dating.model.onboardingData
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.navigation.NavHostController
+import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Inter
 import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.UnselectedDot
@@ -44,7 +46,7 @@ import kotlinx.coroutines.launch
 
 @Preview
 @Composable
-fun WalkthroughScreen() {
+fun WalkthroughScreen(navController: NavHostController) {
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { onboardingData.size }
@@ -106,7 +108,7 @@ fun WalkthroughScreen() {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        nextButtonClick(pagerState)
+                        nextButtonClick(pagerState, navController)
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
@@ -130,9 +132,11 @@ suspend fun previousButtonClick(pagerState: PagerState) {
 }
 
 // Function to handle next button click
-suspend fun nextButtonClick(pagerState: PagerState) {
+suspend fun nextButtonClick(pagerState: PagerState, navController: NavHostController) {
     if (pagerState.currentPage < pagerState.pageCount - 1) {
         pagerState.animateScrollToPage(pagerState.currentPage + 1)
+    }else{
+        navController.navigate(Routes.Login.route)
     }
 }
 

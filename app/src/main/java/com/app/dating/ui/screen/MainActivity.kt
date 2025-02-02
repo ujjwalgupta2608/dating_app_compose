@@ -1,9 +1,12 @@
 package com.app.dating.ui.screen
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -38,13 +41,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+fun Context.getActivity(): MainActivity? = when (this) {
+    is MainActivity -> this
+    is ContextWrapper -> baseContext.getActivity()
+    else -> null
+}
 @Composable
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
-        delay(2000) // Splash duration
-        navController.navigate(Routes.selectLanguage) {
-            popUpTo(Routes.splash) { inclusive = true } // Remove splash from backstack
+        delay(500) // Splash duration
+        navController.navigate(Routes.SelectLanguage.withArgs("splash")) {
+            popUpTo(Routes.Splash.route) { inclusive = true } // Remove splash from backstack
         }
     }
     Column(

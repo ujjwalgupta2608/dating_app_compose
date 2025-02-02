@@ -1,5 +1,7 @@
 package com.app.dating.ui.screen
 
+import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,15 +42,33 @@ import com.app.dating.ui.theme.WhiteWhisper
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavHostController
 import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Theme
+import com.app.dating.ui.view_model.LoginViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginFlow(navController: NavHostController) {
+    val context = LocalContext.current.getActivity()
+    BackHandler {
+        context?.finish()
+    }
+    LoginScreen(navController)
+}
+
+@Composable
+fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = viewModel()) {
+    val username by viewModel.username.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val loginSuccess by viewModel.loginSuccess.collectAsState()
+
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -57,7 +78,7 @@ fun LoginScreen(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .clickable {
-                    navController.navigate(Routes.selectLanguage)
+                    navController.navigate(Routes.SelectLanguage.route)
                 }
                 .align(Alignment.End)
                 .padding(5.dp, 30.dp, 13.dp, 0.dp)
@@ -96,7 +117,7 @@ fun LoginScreen(navController: NavHostController) {
             fontWeight = FontWeight.Normal,
             color = BlackMineShaft
         )
-        CustomEmailTextFieldLogin()
+        CustomEmailTextFieldLogin(viewModel)
         Text(
             text = "Password",
             modifier = Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp),
@@ -218,7 +239,7 @@ fun LoginScreen(navController: NavHostController) {
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 10.dp)
-                    .clickable { navController.navigate(Routes.signup) },
+                    .clickable { navController.navigate(Routes.Signup.route) },
                 textDecoration = TextDecoration.Underline
             )
         }
@@ -274,9 +295,10 @@ fun CustomPasswordTextFieldLogin() {
     }
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CustomEmailTextFieldLogin() {
-    var email by remember { mutableStateOf("") }
+fun CustomEmailTextFieldLogin(viewModel: LoginViewModel) {
+//    var email by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -290,15 +312,15 @@ fun CustomEmailTextFieldLogin() {
         Row(
             verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
         ) {
-            BasicTextField(value = email,
-                onValueChange = { email = it },
+            BasicTextField(value = viewModel.username.value,
+                onValueChange = { viewModel.password.value  = it },
                 modifier = Modifier.weight(1f),
                 textStyle = TextStyle(
                     color = BlackMineShaft, fontSize = 13.sp
                 ),
                 singleLine = true,
                 decorationBox = { innerTextField ->
-                    if (email.isEmpty()) {
+                    if (viewModel.username.value.isEmpty()) {
                         Text(
                             text = "Enter email", color = GreyBoulder, fontSize = 13.sp
                         )
