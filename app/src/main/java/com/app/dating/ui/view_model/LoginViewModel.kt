@@ -1,5 +1,6 @@
 package com.app.dating.ui.view_model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.dating.network_call.retpsitory.AuthRepository
@@ -13,8 +14,11 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val repository: AuthRepository) : ViewModel() {
 
     // Form input states
-    var username = MutableStateFlow("")
-    var password = MutableStateFlow("")
+    private val _username = MutableStateFlow("")
+    val username = _username.asStateFlow()
+
+    private val _password = MutableStateFlow("")
+    val password = _password.asStateFlow()
 
     // Validation error states
     private val _errorMessage = MutableStateFlow("")
@@ -25,6 +29,14 @@ class LoginViewModel @Inject constructor(private val repository: AuthRepository)
 
     private val _loginSuccess = MutableStateFlow<Boolean?>(null)
     val loginSuccess = _loginSuccess.asStateFlow()
+
+    fun setUsername(value: String) {
+        _username.value = value
+    }
+
+    fun setPassword(value: String) {
+        _password.value = value
+    }
 
     // Validate form
     private fun validateInput(): Boolean {
@@ -57,18 +69,23 @@ class LoginViewModel @Inject constructor(private val repository: AuthRepository)
         viewModelScope.launch {
             try {
                 val response = repository.login(username.value, password.value)
-                if (response.status=="200") {
+                Log.d("LoginViewModel", "Response: $response") // Log the API response
+
+                if (response.status == "200") {
                     _loginSuccess.value = true
                 } else {
                     _errorMessage.value = response.message
                     _loginSuccess.value = false
                 }
             } catch (e: Exception) {
-                _errorMessage.value = "Something went wrong"
+                Log.e("LoginViewModel", "Login failed", e) // Log the exception
+                _errorMessage.value = "Something went wrong: ${e.localizedMessage}"
                 _loginSuccess.value = false
             } finally {
                 _isLoading.value = false
             }
         }
     }
+
 }
+

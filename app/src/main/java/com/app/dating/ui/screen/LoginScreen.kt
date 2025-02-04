@@ -1,6 +1,7 @@
 package com.app.dating.ui.screen
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,11 +17,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +49,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Theme
@@ -62,7 +66,8 @@ fun LoginFlow(navController: NavHostController) {
 }
 
 @Composable
-fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+    val context = LocalContext.current
     val username by viewModel.username.collectAsState()
     val password by viewModel.password.collectAsState()
     val errorMessage by viewModel.errorMessage.collectAsState()
@@ -75,20 +80,21 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = vi
             .fillMaxSize()
             .background(White)
     ) {
+        // Language Selector
         Box(
             modifier = Modifier
-                .clickable {
-                    navController.navigate(Routes.SelectLanguage.route)
-                }
+                .clickable { navController.navigate(Routes.SelectLanguage.route) }
                 .align(Alignment.End)
                 .padding(5.dp, 30.dp, 13.dp, 0.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable.language_icon),
                 contentDescription = "Language Icon",
-                modifier = Modifier.size(26.dp, 26.dp)
+                modifier = Modifier.size(26.dp)
             )
         }
+
+        // Login Title
         Text(
             text = "Login",
             modifier = Modifier
@@ -99,8 +105,10 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = vi
             fontWeight = FontWeight.Bold,
             color = BlackMineShaft
         )
+
+        // Subtitle
         Text(
-            text = "Hi Welcome back, you’ve been missed",
+            text = "Hi, welcome back! You’ve been missed",
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(13.dp, 17.dp, 13.dp, 0.dp),
@@ -109,146 +117,95 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = vi
             fontWeight = FontWeight.Bold,
             color = GreyBoulder
         )
-        Text(
-            text = "Email or User ID",
-            modifier = Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp),
-            fontSize = 13.sp,
-            fontFamily = Inter,
-            fontWeight = FontWeight.Normal,
-            color = BlackMineShaft
-        )
-        CustomEmailTextFieldLogin(viewModel)
-        Text(
-            text = "Password",
-            modifier = Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp),
-            fontSize = 13.sp,
-            fontFamily = Inter,
-            fontWeight = FontWeight.Normal,
-            color = BlackMineShaft
-        )
-        CustomPasswordTextFieldLogin()
+
+        // Email Input
+        Text("Email or User ID", Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
+        CustomEmailTextFieldLogin(viewModel, username)
+
+        // Password Input
+        Text("Password", Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
+        CustomPasswordTextFieldLogin(viewModel, password)
+
+        // Forgot Password
         Text(
             text = "Forgot Password?",
             modifier = Modifier
                 .padding(23.dp, 6.dp, 23.dp, 0.dp)
-                .align(Alignment.End),
+                .align(Alignment.End)
+                .clickable { /* Navigate to Forgot Password */ },
             fontSize = 13.sp,
             fontFamily = Inter,
             fontWeight = FontWeight.Normal,
             color = Theme,
             textDecoration = TextDecoration.Underline
         )
+
+        // Login Button
         Box(
             modifier = Modifier
-                .padding(24.dp, 24.dp, 24.dp, 0.dp)
+                .padding(24.dp, 24.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(24.dp)) // Apply rounded corners
-                .background(Theme) // Background color
-                .padding(horizontal = 13.dp, vertical = 13.dp)
-                .clickable {
-
-                },
-
-            ) {
-            Text(
-                text = "Login",
-                color = WhiteWhisper,
-                fontSize = 15.sp,
-                fontFamily = Inter,
-                fontWeight = FontWeight.Normal,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.align(Alignment.Center) // Center the text in the Box
-            )
-        }
-        Box(
-            modifier = Modifier
-                .padding(24.dp, 16.dp, 24.dp, 24.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(24.dp)) // Apply rounded corners
-                .background(WhiteWhisper) // Background color
-                .padding(horizontal = 13.dp, vertical = 13.dp) // Padding inside the box
+                .clip(RoundedCornerShape(24.dp))
+                .background(Theme)
+                .clickable { viewModel.login() }
+                .padding(13.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Login with Mobile",
-                color = GreyBoulder,
-                fontSize = 15.sp,
-                fontFamily = Inter,
-                fontWeight = FontWeight.Normal,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.align(Alignment.Center) // Center the text in the Box
-            )
+            if (isLoading) {
+                CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
+            } else {
+                Text("Login", color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
+            }
         }
-        Row(modifier = Modifier.padding(24.dp, 15.dp, 24.dp, 0.dp)) {
-            HorizontalDivider(
-                color = WhiteWhisper,
-                thickness = 2.dp,
-                modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.CenterVertically)
-            )
-            Text(
-                text = "Or login with",
-                modifier = Modifier.padding(13.dp, 0.dp, 13.dp, 0.dp),
-                color = GreyBoulder,
-                fontSize = 13.sp,
-                fontFamily = Inter,
-                fontWeight = FontWeight.Normal
-            )
-            HorizontalDivider(
-                color = WhiteWhisper,
-                thickness = 2.dp,
-                modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.CenterVertically)
-            )
-        }
-        Row(
-            modifier = Modifier
-                .padding(24.dp, 36.dp, 24.dp, 0.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Image(
-                painter = painterResource(R.drawable.google_login),
-                contentDescription = "Facebook Login",
-                modifier = Modifier.padding(end = 25.dp)
-            )
-            Image(
-                painter = painterResource(R.drawable.facebook_login),
-                contentDescription = "Google Login"
-            )
-        }
+    }
 
-        Row(
-            modifier = Modifier
-                .padding(24.dp, 36.dp, 24.dp, 24.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                text = "Don't have an account?",
-                color = GreyBoulder,
-                fontSize = 14.sp,
-                fontFamily = Inter,
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = "Sign Up",
-                color = Theme,
-                fontSize = 14.sp,
-                fontFamily = Inter,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(start = 10.dp)
-                    .clickable { navController.navigate(Routes.Signup.route) },
-                textDecoration = TextDecoration.Underline
-            )
+    // Show Toast for errors
+    LaunchedEffect(errorMessage) {
+        if (errorMessage.isNotEmpty()) {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }
+/*@Composable
+fun CustomPasswordTextFieldLogin(viewModel: LoginViewModel, password: String) {
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(color = WhiteWhisper, shape = RoundedCornerShape(8.dp))
+            .padding(15.dp)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            BasicTextField(
+                value = password,
+                onValueChange = { viewModel.setPassword(it) },
+                modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(color = Color.Black, fontSize = 13.sp),
+                singleLine = true,
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                decorationBox = { innerTextField ->
+                    if (password.isEmpty()) {
+                        Text(text = "Enter password", color = Color.Gray, fontSize = 13.sp)
+                    }
+                    innerTextField()
+                }
+            )
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(
+                    painter = painterResource(if (passwordVisible) R.drawable.open_eye else R.drawable.close_eye),
+                    contentDescription = if (passwordVisible) "Hide password" else "Show password",
+                    tint = Color.Gray
+                )
+            }
+
+        }
+    }
+}*/
 
 @Composable
-fun CustomPasswordTextFieldLogin() {
-    var password by remember { mutableStateOf("") }
+fun CustomPasswordTextFieldLogin(viewModel: LoginViewModel, password: String) {
     var passwordVisible by remember { mutableStateOf(false) }
 
     Box(
@@ -264,7 +221,7 @@ fun CustomPasswordTextFieldLogin() {
             verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
         ) {
             BasicTextField(value = password,
-                onValueChange = { password = it },
+                onValueChange = { viewModel.setPassword(it) },
                 modifier = Modifier.weight(1f), // Adjust vertical padding
                 textStyle = TextStyle(
                     color = Color.Black, fontSize = 13.sp
@@ -295,40 +252,31 @@ fun CustomPasswordTextFieldLogin() {
     }
 }
 
-@SuppressLint("StateFlowValueCalledInComposition")
-@Composable
-fun CustomEmailTextFieldLogin(viewModel: LoginViewModel) {
-//    var email by remember { mutableStateOf("") }
 
+@Composable
+fun CustomEmailTextFieldLogin(viewModel: LoginViewModel, username: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .background(
-                color = WhiteWhisper, shape = RoundedCornerShape(8.dp)
-            )
-            .padding(start = 15.dp, top = 15.dp, bottom = 15.dp) // Inner padding for the content
+            .background(color = WhiteWhisper, shape = RoundedCornerShape(8.dp))
+            .padding(15.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
-        ) {
-            BasicTextField(value = viewModel.username.value,
-                onValueChange = { viewModel.password.value  = it },
-                modifier = Modifier.weight(1f),
-                textStyle = TextStyle(
-                    color = BlackMineShaft, fontSize = 13.sp
-                ),
-                singleLine = true,
-                decorationBox = { innerTextField ->
-                    if (viewModel.username.value.isEmpty()) {
-                        Text(
-                            text = "Enter email", color = GreyBoulder, fontSize = 13.sp
-                        )
-                    }
-                    innerTextField()
-                })
-        }
+        BasicTextField(
+            value = username,
+            onValueChange = { viewModel.setUsername(it) },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = TextStyle(color = BlackMineShaft, fontSize = 13.sp),
+            singleLine = true,
+            decorationBox = { innerTextField ->
+                if (username.isEmpty()) {
+                    Text(text = "Enter email", color = GreyBoulder, fontSize = 13.sp)
+                }
+                innerTextField()
+            }
+        )
     }
 }
+
 
 

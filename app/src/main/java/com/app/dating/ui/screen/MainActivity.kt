@@ -30,8 +30,10 @@ import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.AbrilFatFace
 import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.WhiteWhisper
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
