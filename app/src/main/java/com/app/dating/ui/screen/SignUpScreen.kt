@@ -1,5 +1,9 @@
 package com.app.dating.ui.screen
 
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,12 +36,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.app.dating.R
+import com.app.dating.navigation.AppNavigation
 import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.BlackMineShaft
 import com.app.dating.ui.theme.GreyBoulder
@@ -46,6 +53,16 @@ import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.White
 import com.app.dating.ui.theme.WhiteWhisper
 
+/*class Main : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            SignUpScreen()
+
+        }
+    }
+}*/
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -53,7 +70,7 @@ fun SignUpScreen(navController: NavHostController) {
         Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
-            .background(White)
+            .background(White),
     ) {
         Box(
             modifier = Modifier
@@ -79,8 +96,8 @@ fun SignUpScreen(navController: NavHostController) {
         Text(
             text = "Fill your information below or register with your social account.",
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(13.dp, 17.dp, 13.dp, 0.dp),
+                .padding(13.dp, 17.dp, 13.dp, 0.dp).fillMaxWidth(),
+            textAlign = TextAlign.Center,
             fontSize = 15.sp,
             fontFamily = Inter,
             fontWeight = FontWeight.Bold,
@@ -89,6 +106,15 @@ fun SignUpScreen(navController: NavHostController) {
         Text(
             text = "Name",
             modifier = Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp),
+            fontSize = 13.sp,
+            fontFamily = Inter,
+            fontWeight = FontWeight.Normal,
+            color = BlackMineShaft
+        )
+        CustomNameTextField()
+        Text(
+            text = "Email",
+            modifier = Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
             fontWeight = FontWeight.Normal,
@@ -186,11 +212,13 @@ fun SignUpScreen(navController: NavHostController) {
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(start = 10.dp).clickable {
+                modifier = Modifier.padding(start = 10.dp)
+                    .clickable {
                         navController.navigate(Routes.Login.route) {
                         popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
                     }
-                },
+                }
+                ,
                 textDecoration = TextDecoration.Underline
             )
         }
@@ -247,7 +275,7 @@ fun CustomPasswordTextField() {
 }
 
 @Composable
-fun CustomEmailTextField() {
+fun CustomNameTextField() {
     var email by remember { mutableStateOf("") }
 
     Box(
@@ -280,3 +308,40 @@ fun CustomEmailTextField() {
         }
     }
 }
+
+@Composable
+fun CustomEmailTextField() {
+    var email by remember { mutableStateOf("") }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(
+                color = WhiteWhisper, shape = RoundedCornerShape(8.dp)
+            )
+            .padding(start = 15.dp, top = 15.dp, bottom = 15.dp) // Inner padding for the content
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()
+        ) {
+            BasicTextField(value = email,
+                onValueChange = { email = it },
+                modifier = Modifier.weight(1f),
+                textStyle = TextStyle(
+                    color = BlackMineShaft, fontSize = 13.sp
+                ),
+                singleLine = true,
+                decorationBox = { innerTextField ->
+                    if (email.isEmpty()) {
+                        Text(
+                            text = "Enter email", color = GreyBoulder, fontSize = 13.sp
+                        )
+                    }
+                    innerTextField()
+                })
+        }
+    }
+}
+
+

@@ -3,6 +3,7 @@ package com.app.dating.ui.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.dating.model.login.request.LoginRequest
 import com.app.dating.network_call.retpsitory.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,17 +41,24 @@ class LoginViewModel @Inject constructor(private val repository: AuthRepository)
 
     // Validate form
     private fun validateInput(): Boolean {
+        val usernameValue = username.value.trim()
+        val passwordValue = password.value.trim()
+
         return when {
-            username.value.isEmpty() -> {
+            usernameValue.isEmpty() -> {
                 _errorMessage.value = "Username/Email cannot be empty"
                 false
             }
-            password.value.isEmpty() -> {
+            !isValidEmail(usernameValue) && !isValidUsername(usernameValue) -> {
+                _errorMessage.value = "Please enter a valid email or username"
+                false
+            }
+            passwordValue.isEmpty() -> {
                 _errorMessage.value = "Password cannot be empty"
                 false
             }
-            password.value.length < 6 -> {
-                _errorMessage.value = "Password must be at least 6 characters"
+            passwordValue.length < 8 -> {
+                _errorMessage.value = "Password must be at least 8 characters"
                 false
             }
             else -> {
@@ -60,6 +68,17 @@ class LoginViewModel @Inject constructor(private val repository: AuthRepository)
         }
     }
 
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
+    }
+
+    private fun isValidUsername(input: String): Boolean {
+        val regex = Regex("^[a-zA-Z]+[0-9_]*\$")
+        return regex.matches(input)
+    }
+
+
     // API call
     fun login() {
         if (!validateInput()) return // Stop if validation fails
@@ -68,7 +87,7 @@ class LoginViewModel @Inject constructor(private val repository: AuthRepository)
 
         viewModelScope.launch {
             try {
-                val response = repository.login(username.value, password.value)
+                val response = repository.login(LoginRequest(email = username.value, password = password.value, deviceType = "android", deviceToken = "12345") )
                 Log.d("LoginViewModel", "Response: $response") // Log the API response
 
                 if (response.status == "200") {

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun login(emailOrUsername: String, password: String): LoginResponse {
-        return apiService.login(LoginRequest(emailOrUsername, password))
+    suspend fun login(request: LoginRequest): LoginResponse {
+        return apiService.login(request)
     }
 }

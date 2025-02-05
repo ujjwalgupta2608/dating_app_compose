@@ -1,8 +1,12 @@
 package com.app.dating.ui.screen
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,6 +59,17 @@ import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.view_model.LoginViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+
+/*class Main : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            LoginScreen()
+
+        }
+    }
+}*/
 
 @Composable
 fun LoginFlow(navController: NavHostController) {
@@ -157,6 +172,74 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                 Text("Login", color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
             }
         }
+        Row(modifier = Modifier.padding(24.dp, 15.dp, 24.dp, 0.dp)) {
+            HorizontalDivider(
+                color = WhiteWhisper,
+                thickness = 2.dp,
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically)
+            )
+            Text(
+                text = "Or sign up with",
+                modifier = Modifier.padding(13.dp, 0.dp, 13.dp, 0.dp),
+                color = GreyBoulder,
+                fontSize = 13.sp,
+                fontFamily = Inter,
+                fontWeight = FontWeight.Normal
+            )
+            HorizontalDivider(
+                color = WhiteWhisper,
+                thickness = 2.dp,
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically)
+            )
+        }
+        Row(
+            modifier = Modifier
+                .padding(24.dp, 36.dp, 24.dp, 0.dp)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Image(
+                painter = painterResource(R.drawable.google_login),
+                contentDescription = "Facebook Login",
+                modifier = Modifier.padding(end = 25.dp)
+            )
+            Image(
+                painter = painterResource(R.drawable.facebook_login),
+                contentDescription = "Google Login"
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(24.dp, 36.dp, 24.dp, 24.dp)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "Already have an account?",
+                color = GreyBoulder,
+                fontSize = 14.sp,
+                fontFamily = Inter,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = "Login",
+                color = Theme,
+                fontSize = 14.sp,
+                fontFamily = Inter,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(start = 10.dp)
+//                    .clickable {
+//                        navController.navigate(Routes.Login.route) {
+//                        popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
+//                    }
+//                }
+                ,
+                textDecoration = TextDecoration.Underline
+            )
+        }
     }
 
     // Show Toast for errors
@@ -251,7 +334,6 @@ fun CustomPasswordTextFieldLogin(viewModel: LoginViewModel, password: String) {
         }
     }
 }
-
 
 @Composable
 fun CustomEmailTextFieldLogin(viewModel: LoginViewModel, username: String) {
