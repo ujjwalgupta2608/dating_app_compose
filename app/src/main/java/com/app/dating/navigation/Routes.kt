@@ -10,6 +10,8 @@ package com.app.dating.navigation
 }*/
 
 sealed class Routes(val route: String) {
+    object LoginOTP : Routes("loginOTP")
+    object LoginMobile : Routes("loginMobile")
     object Login : Routes("login")
     object Signup : Routes( "signup")
     object SelectLanguage : Routes( "selectLanguage/{previousScreen}")

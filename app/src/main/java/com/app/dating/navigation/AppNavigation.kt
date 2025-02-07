@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.dating.ui.screen.LoginFlow
+import com.app.dating.ui.screen.LoginOTPScreen
+import com.app.dating.ui.screen.LoginWithMobileFlow
 import com.app.dating.ui.screen.SelectLanguageScreen
 import com.app.dating.ui.screen.SignUpScreen
 import com.app.dating.ui.screen.SplashScreen
@@ -33,6 +35,12 @@ fun AppNavigation(){
         }
         composable(Routes.Walkthrough.route){
             WalkthroughScreen(navController)
+        }
+        composable(Routes.LoginMobile.route){
+            LoginWithMobileFlow(navController)
+        }
+        composable(Routes.LoginOTP.route){
+            LoginOTPScreen()
         }
     }
 }

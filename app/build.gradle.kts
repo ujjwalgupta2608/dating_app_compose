@@ -84,6 +84,8 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.logging.interceptor)
+    implementation("com.hbb20:ccp:2.7.3")
+
 
 
 }

@@ -1,12 +1,7 @@
 package com.app.dating.ui.screen
 
-import android.annotation.SuppressLint
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,36 +24,34 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.app.dating.R
+import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.BlackMineShaft
 import com.app.dating.ui.theme.GreyBoulder
 import com.app.dating.ui.theme.Inter
+import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.White
 import com.app.dating.ui.theme.WhiteWhisper
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.app.dating.navigation.Routes
-import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.view_model.LoginViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 /*class Main : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,9 +84,9 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
 
     Column(
         Modifier
-            .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .background(White)
+            .verticalScroll(rememberScrollState())
     ) {
         // Language Selector
         Box(
@@ -158,7 +151,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
         // Login Button
         Box(
             modifier = Modifier
-                .padding(24.dp, 24.dp)
+                .padding(start = 24.dp, end = 24.dp, top = 24.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(24.dp))
                 .background(Theme)
@@ -172,6 +165,24 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                 Text("Login", color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
             }
         }
+        Box(
+            modifier = Modifier
+                .padding(start = 24.dp, end = 24.dp, top = 15.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(24.dp))
+                .background(WhiteWhisper)
+                .clickable {
+                    navController.navigate(Routes.LoginMobile.route)
+                }
+                .padding(13.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
+            } else {
+                Text("Login with Mobile", color = GreyBoulder, fontSize = 15.sp, fontFamily = Inter)
+            }
+        }
         Row(modifier = Modifier.padding(24.dp, 15.dp, 24.dp, 0.dp)) {
             HorizontalDivider(
                 color = WhiteWhisper,
@@ -181,7 +192,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                     .align(Alignment.CenterVertically)
             )
             Text(
-                text = "Or sign up with",
+                text = "Or login with",
                 modifier = Modifier.padding(13.dp, 0.dp, 13.dp, 0.dp),
                 color = GreyBoulder,
                 fontSize = 13.sp,
@@ -218,24 +229,22 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "Already have an account?",
+                text = "Don't have an account?",
                 color = GreyBoulder,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "Login",
+                text = "Sign Up",
                 color = Theme,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 10.dp)
-//                    .clickable {
-//                        navController.navigate(Routes.Login.route) {
-//                        popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
-//                    }
-//                }
+                    .clickable {
+                        navController.navigate(Routes.Signup.route)
+                }
                 ,
                 textDecoration = TextDecoration.Underline
             )
