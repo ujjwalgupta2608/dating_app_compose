@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -32,7 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -53,24 +57,25 @@ import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.White
 import com.app.dating.ui.theme.WhiteWhisper
 
-/*class Main : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            SignUpScreen()
+//class SignupActivity : ComponentActivity() {
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge()
+//        setContent {
+//            SignUpScreen()
+//
+//        }
+//    }
+//}
 
-        }
-    }
-}*/
-
+@Preview
 @Composable
 fun SignUpScreen(navController: NavHostController) {
     Column(
         Modifier
-            .verticalScroll(rememberScrollState())
             .fillMaxSize()
-            .background(White),
+            .background(White)
+            .verticalScroll(rememberScrollState()),
     ) {
         Box(
             modifier = Modifier
@@ -96,7 +101,7 @@ fun SignUpScreen(navController: NavHostController) {
         Text(
             text = "Fill your information below or register with your social account.",
             modifier = Modifier
-                .padding(13.dp, 17.dp, 13.dp, 0.dp).fillMaxWidth(),
+                .padding(52.dp, 17.dp, 52.dp, 0.dp).fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 15.sp,
             fontFamily = Inter,
@@ -114,7 +119,7 @@ fun SignUpScreen(navController: NavHostController) {
         CustomNameTextField()
         Text(
             text = "Email",
-            modifier = Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp),
+            modifier = Modifier.padding(23.dp, 24.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
             fontWeight = FontWeight.Normal,
@@ -123,17 +128,28 @@ fun SignUpScreen(navController: NavHostController) {
         CustomEmailTextField()
         Text(
             text = "Password",
-            modifier = Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp),
+            modifier = Modifier.padding(23.dp, 24.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
             fontWeight = FontWeight.Normal,
             color = BlackMineShaft
         )
         CustomPasswordTextField()
+        Row(modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 18.dp),
+            verticalAlignment = Alignment.CenterVertically){
+            Image(painter = painterResource(R.drawable.unchecked_box),
+                contentDescription = "agree checkbox")
+            TermsAndConditionsText(
+                onTermsClick = {
+                    println("Terms & Conditions Clicked!")
+                    // You can navigate to a Terms & Conditions screen or show a dialog
+                }
+            )
+        }
 
         Box(
             modifier = Modifier
-                .padding(24.dp, 24.dp, 24.dp, 0.dp)
+                .padding(24.dp, 28.dp, 24.dp, 0.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(24.dp)) // Apply rounded corners
                 .background(Theme) // Background color
@@ -154,7 +170,7 @@ fun SignUpScreen(navController: NavHostController) {
             )
         }
 
-        Row(modifier = Modifier.padding(24.dp, 15.dp, 24.dp, 0.dp)) {
+        Row(modifier = Modifier.padding(24.dp, 31.dp, 24.dp, 0.dp)) {
             HorizontalDivider(
                 color = WhiteWhisper,
                 thickness = 2.dp,
@@ -213,11 +229,11 @@ fun SignUpScreen(navController: NavHostController) {
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 10.dp)
-                    .clickable {
-                        navController.navigate(Routes.Login.route) {
-                        popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
-                    }
-                }
+//                    .clickable {
+//                        navController.navigate(Routes.Login.route) {
+//                        popUpTo(Routes.Login.route) { inclusive = true } // Clear all fragments in the back stack
+//                    }
+//                }
                 ,
                 textDecoration = TextDecoration.Underline
             )
@@ -233,7 +249,7 @@ fun CustomPasswordTextField() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             .background(
                 color = WhiteWhisper, shape = RoundedCornerShape(8.dp)
             )
@@ -281,7 +297,7 @@ fun CustomNameTextField() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             .background(
                 color = WhiteWhisper, shape = RoundedCornerShape(8.dp)
             )
@@ -316,7 +332,7 @@ fun CustomEmailTextField() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             .background(
                 color = WhiteWhisper, shape = RoundedCornerShape(8.dp)
             )
@@ -343,5 +359,50 @@ fun CustomEmailTextField() {
         }
     }
 }
+@Composable
+fun TermsAndConditionsText(
+    onTermsClick: () -> Unit
+) {
+    val annotatedText = buildAnnotatedString {
+        val fullText = stringResource(id = R.string.agree_with_terms)
+        val termsStart = fullText.indexOf("Terms & Conditions") // Finds the phrase dynamically
+        val termsEnd = termsStart + "Terms & Conditions".length
+
+        append(fullText)
+
+        // Apply color and underline to "Terms & Conditions"
+        addStyle(
+            style = SpanStyle(
+                color = Color(0xFF6D53F4), // Custom color
+                textDecoration = TextDecoration.Underline
+            ),
+            start = termsStart,
+            end = termsEnd
+        )
+
+        // Make "Terms & Conditions" clickable
+        addStringAnnotation(
+            tag = "TERMS",
+            annotation = "terms_clicked",
+            start = termsStart,
+            end = termsEnd
+        )
+    }
+
+    ClickableText(
+        text = annotatedText,
+        style = TextStyle(
+            fontFamily = Inter,
+            fontSize = 12.sp,
+            color = Color(0xFF242424) // Default text color
+        ),
+        modifier = Modifier.padding(start = 8.dp),
+        onClick = { offset ->
+            annotatedText.getStringAnnotations(tag = "TERMS", start = offset, end = offset)
+                .firstOrNull()?.let { onTermsClick() }
+        }
+    )
+}
+
 
 

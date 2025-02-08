@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,7 +49,7 @@ import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.White
 import com.app.dating.ui.theme.WhiteWhisper
 
-/*class Main : ComponentActivity() {
+class Main : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,7 +57,7 @@ import com.app.dating.ui.theme.WhiteWhisper
             LoginOTPScreen()
 
         }
-    }*/
+    }
 
     @Preview
     @Composable
@@ -70,19 +71,23 @@ import com.app.dating.ui.theme.WhiteWhisper
             Image(painter = painterResource(R.drawable.back_button),
                 contentDescription = "Back Button",
                 modifier = Modifier
-                    .padding(start = 24.dp, top = 20.dp)
+                    .padding(start = 24.dp, top = 40.dp)
                     .clickable {
 
                     })
-            Text(
-                fontSize = 25.sp,
-                text = "Tell us your Phone Number?",
-                color = BlackMineShaft,
-                modifier = Modifier.padding(start = 78.dp, end = 78.dp),
-                fontFamily = Inter,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
+            Box(modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center) {
+                Text(
+                    fontSize = 25.sp,
+                    text = "Verify Code",
+                    color = BlackMineShaft,
+                    modifier = Modifier.padding(start = 78.dp, end = 78.dp),
+                    fontFamily = Inter,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+            }
+           
             Text(
                 fontSize = 13.sp,
                 text = "Please enter the mobile number associated with this account",
@@ -92,7 +97,8 @@ import com.app.dating.ui.theme.WhiteWhisper
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Center
             )
-            var otp /*by remember { mutableStateOf("") }*/=""
+            var otp by remember { mutableStateOf("") }
+
 
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -136,7 +142,7 @@ import com.app.dating.ui.theme.WhiteWhisper
     @Composable
     fun OtpBox(char: String, isFocused: Boolean) {
         Box(
-            modifier = Modifier
+            modifier = Modifier.padding(horizontal = 7.dp)
                 .size(width = 58.dp, height = 32.dp)
                 .background(
                     color = Color(0xFFF5F5F5), // Equivalent to android:itemBackground="@color/white_whisper"
@@ -159,4 +165,4 @@ import com.app.dating.ui.theme.WhiteWhisper
     }
 
 
-//}
+}

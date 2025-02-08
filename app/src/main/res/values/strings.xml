@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DatingCompose</string>
+    <string name="agree_with_terms"><![CDATA[Agree with Terms & Conditions]]></string>
 </resources>
