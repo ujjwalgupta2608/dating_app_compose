@@ -1,4 +1,4 @@
-package com.app.dating.ui.screen
+package com.app.dating.ui.screen.login
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
@@ -45,13 +45,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.app.dating.R
 import com.app.dating.navigation.Routes
+import com.app.dating.ui.screen.getActivity
 import com.app.dating.ui.theme.BlackMineShaft
 import com.app.dating.ui.theme.GreyBoulder
 import com.app.dating.ui.theme.Inter
 import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.White
 import com.app.dating.ui.theme.WhiteWhisper
-import com.app.dating.ui.view_model.LoginViewModel
 
 /*class Main : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

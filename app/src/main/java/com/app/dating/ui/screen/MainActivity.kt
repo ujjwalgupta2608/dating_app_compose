@@ -48,29 +48,3 @@ fun Context.getActivity(): MainActivity? = when (this) {
     is ContextWrapper -> baseContext.getActivity()
     else -> null
 }
-@Composable
-fun SplashScreen(navController: NavHostController) {
-    LaunchedEffect(Unit) {
-        delay(500) // Splash duration
-        navController.navigate(Routes.SelectLanguage.withArgs("splash")) {
-            popUpTo(Routes.Splash.route) { inclusive = true } // Remove splash from backstack
-        }
-    }
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Theme)
-    ) {
-        Image(painter = painterResource(R.drawable.shindindi_logo), contentDescription = "logo")
-        Text(
-            text = "Adore",
-            fontFamily = AbrilFatFace,
-            fontWeight = FontWeight.Bold,
-            fontSize = 45.sp,
-            modifier = Modifier.padding(0.dp, 13.dp, 0.dp, 0.dp),
-            color = WhiteWhisper
-        )
-    }
-}

@@ -1,4 +1,4 @@
-package com.app.dating.ui.view_model
+package com.app.dating.ui.screen.login
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

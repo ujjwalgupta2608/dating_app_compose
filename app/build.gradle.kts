@@ -80,11 +80,20 @@ dependencies {
     implementation (libs.androidx.lifecycle.runtime.ktx.v262)
     implementation (libs.kotlinx.coroutines.android)
 
+//    hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+//    logging interceptor
     implementation(libs.logging.interceptor)
+
+//    country code picker
     implementation("com.hbb20:ccp:2.7.3")
+
+//    datastore
+    implementation (libs.androidx.datastore.preferences)
+
 
 
 

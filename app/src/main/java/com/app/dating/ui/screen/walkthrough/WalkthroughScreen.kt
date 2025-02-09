@@ -1,4 +1,4 @@
-package com.app.dating.ui.screen
+package com.app.dating.ui.screen.walkthrough
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,6 +20,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,6 +39,7 @@ import com.app.dating.R
 import com.app.dating.model.OnboardingData
 import com.app.dating.model.onboardingData
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Inter
@@ -46,7 +49,7 @@ import kotlinx.coroutines.launch
 
 @Preview
 @Composable
-fun WalkthroughScreen(navController: NavHostController) {
+fun WalkthroughScreen(navController: NavHostController, viewModel: WalkthroughViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { onboardingData.size }
@@ -108,7 +111,7 @@ fun WalkthroughScreen(navController: NavHostController) {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        nextButtonClick(pagerState, navController)
+                        nextButtonClick(pagerState, navController, viewModel)
                     }
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
@@ -132,10 +135,15 @@ suspend fun previousButtonClick(pagerState: PagerState) {
 }
 
 // Function to handle next button click
-suspend fun nextButtonClick(pagerState: PagerState, navController: NavHostController) {
+suspend fun nextButtonClick(
+    pagerState: PagerState,
+    navController: NavHostController,
+    viewModel: WalkthroughViewModel
+) {
     if (pagerState.currentPage < pagerState.pageCount - 1) {
         pagerState.animateScrollToPage(pagerState.currentPage + 1)
     }else{
+        viewModel.setWalkThrough(true)
         navController.navigate(Routes.Login.route)
     }
 }
