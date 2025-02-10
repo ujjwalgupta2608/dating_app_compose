@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,10 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.dating.R
 import com.app.dating.model.OnboardingData
-import com.app.dating.model.onboardingData
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.app.dating.model.getOnboardingData
 import com.app.dating.navigation.Routes
 import com.app.dating.ui.theme.Inter
 import com.app.dating.ui.theme.Theme
@@ -50,9 +51,10 @@ import kotlinx.coroutines.launch
 @Preview
 @Composable
 fun WalkthroughScreen(navController: NavHostController, viewModel: WalkthroughViewModel = hiltViewModel()) {
+    val context = LocalContext.current
     val pagerState = rememberPagerState(
         initialPage = 0,
-        pageCount = { onboardingData.size }
+        pageCount = { getOnboardingData(context).size }
     )
 
     val coroutineScope = rememberCoroutineScope() // CoroutineScope for launching suspend functions
@@ -72,7 +74,7 @@ fun WalkthroughScreen(navController: NavHostController, viewModel: WalkthroughVi
             userScrollEnabled = false// Pager takes 75% of the screen height
         ) { page ->
             highlightPreviousButton.value = page!=0
-            PagerDesign(onboardingData[page])
+            PagerDesign(getOnboardingData(context)[page])
         }
 
         // Indicator + Buttons Row
@@ -105,7 +107,7 @@ fun WalkthroughScreen(navController: NavHostController, viewModel: WalkthroughVi
             }
 
             // Indicator in the center
-            CustomPagerIndicator(currentPage = pagerState.currentPage, pageCount = onboardingData.size)
+            CustomPagerIndicator(currentPage = pagerState.currentPage, pageCount = getOnboardingData(context).size)
 
             // Next Button
             Button(

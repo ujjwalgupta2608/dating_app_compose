@@ -1,4 +1,4 @@
-package com.app.dating.ui.screen
+package com.app.dating.ui.screen.language
 
 import com.app.dating.model.languages
 import android.util.Log
@@ -26,10 +26,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.app.dating.R
 import com.app.dating.navigation.Routes
@@ -42,9 +44,9 @@ import com.app.dating.ui.theme.WhiteWhisper
 import com.app.dating.ui.theme.Typography
 
 @Composable
-fun SelectLanguageScreen(navController: NavHostController, previousScreen: String) {
+fun SelectLanguageScreen(navController: NavHostController, previousScreen: String, viewModel: LocaleViewModel = hiltViewModel()) {
     // List of languages
-    var selectedLanguage by remember { mutableStateOf(languages[0]) }
+    var selectedLanguage by remember { mutableStateOf(languages[0].first) }
     Column(
         Modifier
             .fillMaxSize()
@@ -72,7 +74,7 @@ fun SelectLanguageScreen(navController: NavHostController, previousScreen: Strin
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
-                    text = "Select Language",
+                    text = stringResource(R.string.select_language),
                     style = Typography.displayLarge,
                 )
             }
@@ -80,10 +82,10 @@ fun SelectLanguageScreen(navController: NavHostController, previousScreen: Strin
 
         // Language List
         LazyColumn(modifier = Modifier.weight(1f)) {
-            items(languages) { language ->
+            items(languages) { (language, code) ->
                 ItemList(language = language,
                     isSelected = selectedLanguage == language,
-                    onLanguageSelected = { selectedLanguage = it })
+                    onLanguageSelected = { selectedLanguage = language })
             }
         }
 
@@ -95,6 +97,7 @@ fun SelectLanguageScreen(navController: NavHostController, previousScreen: Strin
         ), modifier = Modifier
             .fillMaxWidth()
             .clickable {
+                viewModel.changeLanguage(languages.find { it.first == selectedLanguage }?.second ?: "en")
                 navController.navigate(Routes.Welcome.route)
             }) {
             Box(
@@ -106,7 +109,7 @@ fun SelectLanguageScreen(navController: NavHostController, previousScreen: Strin
                     .padding(horizontal = 13.dp, vertical = 13.dp) // Padding inside the box
             ) {
                 Text(
-                    text = "Update Language",
+                    text = stringResource(R.string.update_language),
                     color = WhiteWhisper,
                     fontSize = 15.sp,
                     fontFamily = Inter,

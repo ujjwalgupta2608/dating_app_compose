@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">डेटिंगकंपोज़</string>
+    <string name="agree_with_terms"><![CDATA[नियम और शर्तों से सहमत हों]]></string>
+    <string name="adore">प्रशंसा करें</string>
+    <string name="discover_love">"प्रेम की खोज करें: "</string>
+    <string name="where_your_story_begins">जहाँ आपकी कहानी शुरू होती है।</string>
+    <string name="let_s_get_started">चलिए शुरू करते हैं</string>
+    <string name="already_have_an_account">पहले से ही एक खाता है?</string>
+    <string name="login">लॉगिन करें</string>
+    <string name="meeting_new_people">"नए लोगों से मिलना "</string>
+    <string name="in_your_area">आपके क्षेत्र में</string>
+    <string name="hi_welcome_back_you_ve_been_missed">नमस्ते, फिर से स्वागत है! आपकी याद आई</string>
+    <string name="email_or_user_id">ईमेल या यूजर आईडी</string>
+    <string name="password">पासवर्ड</string>
+    <string name="forgot_password">पासवर्ड भूल गए?</string>
+    <string name="enter_password">पासवर्ड दर्ज करें</string>
+    <string name="enter_email">ईमेल दर्ज करें</string>
+    <string name="login_with_mobile">मोबाइल से लॉगिन करें</string>
+    <string name="or_login_with">या लॉगिन करें</string>
+    <string name="sign_up">साइन अप करें</string>
+    <string name="don_t_have_an_account">कोई खाता नहीं है?</string>
+    <string name="tell_us_your_phone_number">हमें अपना फ़ोन नंबर बताएं?</string>
+    <string name="please_enter_the_mobile_number_associated_with_this_account">कृपया इस खाते से जुड़े मोबाइल नंबर दर्ज करें</string>
+    <string name="phone_number">फोन नंबर</string>
+    <string name="enter_phone_number">फोन नंबर दर्ज करें</string>
+    <string name="send_otp">ओटीपी भेजें</string>
+    <string name="login_with_email">ईमेल से लॉगिन करें</string>
+    <string name="create_account">खाता बनाएं</string>
+    <string name="fill_your_information_below_or_register_with_your_social_account">नीचे अपनी जानकारी भरें या अपने सोशल अकाउंट से रजिस्टर करें।</string>
+    <string name="name">नाम</string>
+    <string name="email">ईमेल</string>
+    <string name="or_sign_up_with">या साइन अप करें</string>
+    <string name="verify_code">कोड सत्यापित करें</string>
+    <string name="select_language">भाषा चुनें</string>
+    <string name="update_language">भाषा अपडेट करें</string>
+</resources>

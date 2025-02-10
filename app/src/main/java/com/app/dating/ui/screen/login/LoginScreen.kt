@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -104,7 +105,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
 
         // Login Title
         Text(
-            text = "Login",
+            text = stringResource(R.string.login),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(13.dp, 22.dp, 13.dp, 0.dp),
@@ -116,7 +117,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
 
         // Subtitle
         Text(
-            text = "Hi, welcome back! You’ve been missed",
+            text = stringResource(R.string.hi_welcome_back_you_ve_been_missed),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(13.dp, 17.dp, 13.dp, 0.dp),
@@ -127,16 +128,16 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
         )
 
         // Email Input
-        Text("Email or User ID", Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
+        Text(stringResource(R.string.email_or_user_id), Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
         CustomEmailTextFieldLogin(viewModel, username)
 
         // Password Input
-        Text("Password", Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
+        Text(stringResource(R.string.password), Modifier.padding(23.dp, 6.dp, 0.dp, 0.dp), fontSize = 13.sp, fontFamily = Inter)
         CustomPasswordTextFieldLogin(viewModel, password)
 
         // Forgot Password
         Text(
-            text = "Forgot Password?",
+            text = stringResource(R.string.forgot_password),
             modifier = Modifier
                 .padding(23.dp, 6.dp, 23.dp, 0.dp)
                 .align(Alignment.End)
@@ -162,7 +163,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
             if (isLoading) {
                 CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
             } else {
-                Text("Login", color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
+                Text(stringResource(R.string.login), color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
             }
         }
         Box(
@@ -180,7 +181,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
             if (isLoading) {
                 CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
             } else {
-                Text("Login with Mobile", color = GreyBoulder, fontSize = 15.sp, fontFamily = Inter)
+                Text(text = stringResource(R.string.login_with_mobile), color = GreyBoulder, fontSize = 15.sp, fontFamily = Inter)
             }
         }
         Row(modifier = Modifier.padding(24.dp, 15.dp, 24.dp, 0.dp)) {
@@ -192,7 +193,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                     .align(Alignment.CenterVertically)
             )
             Text(
-                text = "Or login with",
+                text = stringResource(R.string.or_login_with),
                 modifier = Modifier.padding(13.dp, 0.dp, 13.dp, 0.dp),
                 color = GreyBoulder,
                 fontSize = 13.sp,
@@ -229,22 +230,23 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel = hi
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "Don't have an account?",
+                text = stringResource(R.string.don_t_have_an_account),
                 color = GreyBoulder,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "Sign Up",
+                text = stringResource(R.string.sign_up),
                 color = Theme,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(start = 10.dp)
+                modifier = Modifier
+                    .padding(start = 10.dp)
                     .clickable {
                         navController.navigate(Routes.Signup.route)
-                }
+                    }
                 ,
                 textDecoration = TextDecoration.Underline
             )
@@ -323,7 +325,7 @@ fun CustomPasswordTextFieldLogin(viewModel: LoginViewModel, password: String) {
                 decorationBox = { innerTextField ->
                     if (password.isEmpty()) {
                         Text(
-                            text = "Enter password", color = Color.Gray, fontSize = 13.sp
+                            text = stringResource(R.string.enter_password), color = Color.Gray, fontSize = 13.sp
                         )
                     }
                     innerTextField()
@@ -361,7 +363,7 @@ fun CustomEmailTextFieldLogin(viewModel: LoginViewModel, username: String) {
             singleLine = true,
             decorationBox = { innerTextField ->
                 if (username.isEmpty()) {
-                    Text(text = "Enter email", color = GreyBoulder, fontSize = 13.sp)
+                    Text(text = stringResource(R.string.enter_email), color = GreyBoulder, fontSize = 13.sp)
                 }
                 innerTextField()
             }

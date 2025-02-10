@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -60,7 +61,7 @@ fun WelcomeScreen(navController: NavHostController) {
                     contentDescription = "Welcome Image"
                 )
                 Text(
-                    text = "Adore",
+                    text = stringResource(R.string.adore),
                     color = BlackMineShaft,
                     fontFamily = Inter,
                     fontWeight = FontWeight.Medium,
@@ -78,10 +79,10 @@ fun WelcomeScreen(navController: NavHostController) {
         Column(modifier = Modifier.weight(0.4f)) {
             Text(
                 text = buildAnnotatedString {
-                    append("Discover Love: ")
+                    append(stringResource(R.string.discover_love))
                     addStyle(SpanStyle(color = Color(0xFF6D53F4)), 0, 14)
 
-                    append("Where Your Story Begins.")
+                    append(stringResource(R.string.where_your_story_begins))
                     addStyle(SpanStyle(color = Color(0xFF242424)), 14, length)
                 },
                 fontFamily = Inter,
@@ -91,9 +92,10 @@ fun WelcomeScreen(navController: NavHostController) {
                 textAlign = TextAlign.Center
             )
             Box(
-                modifier = Modifier.clickable {
-                    navController.navigate(Routes.Walkthrough.route)
-                }
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(Routes.Walkthrough.route)
+                    }
                     .padding(24.dp, 70.dp, 24.dp, 24.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(24.dp))
@@ -101,7 +103,7 @@ fun WelcomeScreen(navController: NavHostController) {
                     .padding(horizontal = 13.dp, vertical = 13.dp)
             ) {
                 Text(
-                    text = "Let’s Get Started",
+                    text = stringResource(R.string.let_s_get_started),
                     style = Typography.labelSmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -114,14 +116,14 @@ fun WelcomeScreen(navController: NavHostController) {
                     .align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = "Already have an account?",
+                    text = stringResource(R.string.already_have_an_account),
                     color = GreyBoulder,
                     fontSize = 16.sp,
                     fontFamily = Inter,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "Login",
+                    text = stringResource(R.string.login),
                     color = Theme,
                     fontSize = 16.sp,
                     fontFamily = Inter,

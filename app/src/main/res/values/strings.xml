@@ -1,4 +1,36 @@
 <resources>
     <string name="app_name">DatingCompose</string>
     <string name="agree_with_terms"><![CDATA[Agree with Terms & Conditions]]></string>
+    <string name="adore">Adore</string>
+    <string name="discover_love">"Discover Love: "</string>
+    <string name="where_your_story_begins">Where Your Story Begins.</string>
+    <string name="let_s_get_started">Let’s Get Started</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="meeting_new_people">"Meeting New People "</string>
+    <string name="in_your_area">in Your Area</string>
+    <string name="hi_welcome_back_you_ve_been_missed">Hi, welcome back! You’ve been missed</string>
+    <string name="email_or_user_id">Email or User ID</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_email">Enter email</string>
+    <string name="login_with_mobile">Login with Mobile</string>
+    <string name="or_login_with">Or login with</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="tell_us_your_phone_number">Tell us your Phone Number?</string>
+    <string name="please_enter_the_mobile_number_associated_with_this_account">Please enter the mobile number associated with this account</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="create_account">Create Account</string>
+    <string name="fill_your_information_below_or_register_with_your_social_account">Fill your information below or register with your social account.</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="or_sign_up_with">Or sign up with</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="select_language">Select Language</string>
+    <string name="update_language">Update Language</string>
 </resources>

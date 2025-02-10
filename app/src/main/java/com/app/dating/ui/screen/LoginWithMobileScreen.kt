@@ -41,6 +41,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.viewinterop.AndroidView
@@ -80,7 +81,7 @@ import com.app.dating.ui.theme.WhiteWhisper
                     })
             Text(
                 fontSize = 25.sp,
-                text = "Tell us your Phone Number?",
+                text = stringResource(R.string.tell_us_your_phone_number),
                 color = BlackMineShaft,
                 modifier = Modifier.padding(start = 78.dp, end = 78.dp),
                 fontFamily = Inter,
@@ -89,7 +90,7 @@ import com.app.dating.ui.theme.WhiteWhisper
             )
             Text(
                 fontSize = 13.sp,
-                text = "Please enter the mobile number associated with this account",
+                text = stringResource(R.string.please_enter_the_mobile_number_associated_with_this_account),
                 color = GreyBoulder,
                 modifier = Modifier.padding(start = 78.dp, end = 78.dp, top = 18.dp),
                 fontFamily = Inter,
@@ -98,7 +99,7 @@ import com.app.dating.ui.theme.WhiteWhisper
             )
             Text(
                 fontSize = 13.sp,
-                text = "Phone Number",
+                text = stringResource(R.string.phone_number),
                 color = BlackMineShaft,
                 modifier = Modifier.padding(start = 23.dp, top = 39.dp),
                 fontFamily = Inter,
@@ -137,7 +138,7 @@ import com.app.dating.ui.theme.WhiteWhisper
                         decorationBox = { innerTextField ->
                             if (phoneNumber.isEmpty()) {
                                 Text(
-                                    text = "Enter Phone Number", color = GreyBoulder, fontSize = 13.sp
+                                    text = stringResource(R.string.enter_phone_number), color = GreyBoulder, fontSize = 13.sp
                                 )
                             }
                             innerTextField()
@@ -156,7 +157,7 @@ import com.app.dating.ui.theme.WhiteWhisper
             }
             Box(
                 modifier = Modifier
-                    .padding(start = 24.dp, end = 24.dp, top =47.dp)
+                    .padding(start = 24.dp, end = 24.dp, top = 47.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(24.dp))
                     .background(Theme)
@@ -169,7 +170,7 @@ import com.app.dating.ui.theme.WhiteWhisper
                 if (/*isLoading*/false) {
                     CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
                 } else {
-                    Text("Send OTP", color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
+                    Text(stringResource(R.string.send_otp), color = WhiteWhisper, fontSize = 15.sp, fontFamily = Inter)
                 }
             }
             Box(
@@ -179,8 +180,8 @@ import com.app.dating.ui.theme.WhiteWhisper
                     .clip(RoundedCornerShape(24.dp))
                     .background(WhiteWhisper)
                     .clickable {
-                        navController.navigate(Routes.Login.route){
-                            popUpTo(Routes.Login.route){
+                        navController.navigate(Routes.Login.route) {
+                            popUpTo(Routes.Login.route) {
                                 inclusive = true
                             }
                         }
@@ -191,7 +192,7 @@ import com.app.dating.ui.theme.WhiteWhisper
                 if (/*isLoading*/false) {
                     CircularProgressIndicator(color = Color.Black, strokeWidth = 2.dp, modifier = Modifier.size(20.dp))
                 } else {
-                    Text("Login with Email", color = GreyBoulder, fontSize = 15.sp, fontFamily = Inter)
+                    Text(stringResource(R.string.login_with_email), color = GreyBoulder, fontSize = 15.sp, fontFamily = Inter)
                 }
             }
         }

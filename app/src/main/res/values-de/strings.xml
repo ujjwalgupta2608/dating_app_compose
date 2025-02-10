@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">DatingCompose</string>
+    <string name="agree_with_terms"><![CDATA[Stimme den Allgemeinen Geschäftsbedingungen zu]]></string>
+    <string name="adore">Verehren</string>
+    <string name="discover_love">"Liebe entdecken: "</string>
+    <string name="where_your_story_begins">Wo deine Geschichte beginnt.</string>
+    <string name="let_s_get_started">Lass uns anfangen</string>
+    <string name="already_have_an_account">Hast du bereits ein Konto?</string>
+    <string name="login">Anmelden</string>
+    <string name="meeting_new_people">"Neue Leute treffen "</string>
+    <string name="in_your_area">in deiner Umgebung</string>
+    <string name="hi_welcome_back_you_ve_been_missed">Hallo, willkommen zurück! Du wurdest vermisst</string>
+    <string name="email_or_user_id">E-Mail oder Benutzer-ID</string>
+    <string name="password">Passwort</string>
+    <string name="forgot_password">Passwort vergessen?</string>
+    <string name="enter_password">Passwort eingeben</string>
+    <string name="enter_email">E-Mail eingeben</string>
+    <string name="login_with_mobile">Mit Handy anmelden</string>
+    <string name="or_login_with">Oder anmelden mit</string>
+    <string name="sign_up">Registrieren</string>
+    <string name="don_t_have_an_account">Hast du kein Konto?</string>
+    <string name="tell_us_your_phone_number">Gib uns deine Telefonnummer an?</string>
+    <string name="please_enter_the_mobile_number_associated_with_this_account">Bitte gib die mit diesem Konto verknüpfte Handynummer ein</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="enter_phone_number">Telefonnummer eingeben</string>
+    <string name="send_otp">OTP senden</string>
+    <string name="login_with_email">Mit E-Mail anmelden</string>
+    <string name="create_account">Konto erstellen</string>
+    <string name="fill_your_information_below_or_register_with_your_social_account">Fülle deine Informationen unten aus oder registriere dich mit deinem sozialen Konto.</string>
+    <string name="name">Name</string>
+    <string name="email">E-Mail</string>
+    <string name="or_sign_up_with">Oder registrieren mit</string>
+    <string name="verify_code">Code verifizieren</string>
+    <string name="select_language">Sprache auswählen</string>
+    <string name="update_language">Sprache aktualisieren</string>
+</resources>

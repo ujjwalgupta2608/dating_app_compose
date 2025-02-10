@@ -27,6 +27,7 @@ import androidx.navigation.NavHostController
 import com.app.dating.R
 import com.app.dating.navigation.AppNavigation
 import com.app.dating.navigation.Routes
+import com.app.dating.ui.screen.language.LocaleManager
 import com.app.dating.ui.theme.AbrilFatFace
 import com.app.dating.ui.theme.Theme
 import com.app.dating.ui.theme.WhiteWhisper
@@ -38,6 +39,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val localeManager = LocaleManager(this)
+        localeManager.setLocale(localeManager.getLocale())
         setContent {
             AppNavigation()
         }

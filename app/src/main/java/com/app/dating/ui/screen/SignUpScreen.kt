@@ -89,7 +89,7 @@ fun SignUpScreen(navController: NavHostController) {
             )
         }
         Text(
-            text = "Create Account",
+            text = stringResource(R.string.create_account),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(13.dp, 22.dp, 13.dp, 0.dp),
@@ -99,9 +99,10 @@ fun SignUpScreen(navController: NavHostController) {
             color = BlackMineShaft
         )
         Text(
-            text = "Fill your information below or register with your social account.",
+            text = stringResource(R.string.fill_your_information_below_or_register_with_your_social_account),
             modifier = Modifier
-                .padding(52.dp, 17.dp, 52.dp, 0.dp).fillMaxWidth(),
+                .padding(52.dp, 17.dp, 52.dp, 0.dp)
+                .fillMaxWidth(),
             textAlign = TextAlign.Center,
             fontSize = 15.sp,
             fontFamily = Inter,
@@ -109,7 +110,7 @@ fun SignUpScreen(navController: NavHostController) {
             color = GreyBoulder
         )
         Text(
-            text = "Name",
+            text = stringResource(R.string.name),
             modifier = Modifier.padding(23.dp, 46.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
@@ -118,7 +119,7 @@ fun SignUpScreen(navController: NavHostController) {
         )
         CustomNameTextField()
         Text(
-            text = "Email",
+            text = stringResource(R.string.email),
             modifier = Modifier.padding(23.dp, 24.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
@@ -127,7 +128,7 @@ fun SignUpScreen(navController: NavHostController) {
         )
         CustomEmailTextField()
         Text(
-            text = "Password",
+            text = stringResource(R.string.password),
             modifier = Modifier.padding(23.dp, 24.dp, 0.dp, 0.dp),
             fontSize = 13.sp,
             fontFamily = Inter,
@@ -159,7 +160,7 @@ fun SignUpScreen(navController: NavHostController) {
                 }
         ) {
             Text(
-                text = "Sign Up",
+                text = stringResource(R.string.sign_up),
                 color = WhiteWhisper,
                 fontSize = 15.sp,
                 fontFamily = Inter,
@@ -179,7 +180,7 @@ fun SignUpScreen(navController: NavHostController) {
                     .align(Alignment.CenterVertically)
             )
             Text(
-                text = "Or sign up with",
+                text = stringResource(R.string.or_sign_up_with),
                 modifier = Modifier.padding(13.dp, 0.dp, 13.dp, 0.dp),
                 color = GreyBoulder,
                 fontSize = 13.sp,
@@ -216,14 +217,14 @@ fun SignUpScreen(navController: NavHostController) {
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "Already have an account?",
+                text = stringResource(R.string.already_have_an_account),
                 color = GreyBoulder,
                 fontSize = 14.sp,
                 fontFamily = Inter,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = "Login",
+                text = stringResource(R.string.login),
                 color = Theme,
                 fontSize = 14.sp,
                 fontFamily = Inter,

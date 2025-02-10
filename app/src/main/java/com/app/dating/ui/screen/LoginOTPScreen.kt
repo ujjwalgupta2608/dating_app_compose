@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -79,7 +80,7 @@ class Main : ComponentActivity() {
                 contentAlignment = Alignment.Center) {
                 Text(
                     fontSize = 25.sp,
-                    text = "Verify Code",
+                    text = stringResource(R.string.verify_code),
                     color = BlackMineShaft,
                     modifier = Modifier.padding(start = 78.dp, end = 78.dp),
                     fontFamily = Inter,
@@ -90,7 +91,7 @@ class Main : ComponentActivity() {
            
             Text(
                 fontSize = 13.sp,
-                text = "Please enter the mobile number associated with this account",
+                text = stringResource(R.string.please_enter_the_mobile_number_associated_with_this_account),
                 color = GreyBoulder,
                 modifier = Modifier.padding(start = 78.dp, end = 78.dp, top = 18.dp),
                 fontFamily = Inter,
@@ -142,7 +143,8 @@ class Main : ComponentActivity() {
     @Composable
     fun OtpBox(char: String, isFocused: Boolean) {
         Box(
-            modifier = Modifier.padding(horizontal = 7.dp)
+            modifier = Modifier
+                .padding(horizontal = 7.dp)
                 .size(width = 58.dp, height = 32.dp)
                 .background(
                     color = Color(0xFFF5F5F5), // Equivalent to android:itemBackground="@color/white_whisper"

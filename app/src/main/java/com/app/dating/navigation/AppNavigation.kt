@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.app.dating.ui.screen.login.LoginFlow
 import com.app.dating.ui.screen.LoginWithMobileFlow
-import com.app.dating.ui.screen.SelectLanguageScreen
+import com.app.dating.ui.screen.language.SelectLanguageScreen
 import com.app.dating.ui.screen.SignUpScreen
 import com.app.dating.ui.screen.walkthrough.WalkthroughScreen
 import com.app.dating.ui.screen.WelcomeScreen
